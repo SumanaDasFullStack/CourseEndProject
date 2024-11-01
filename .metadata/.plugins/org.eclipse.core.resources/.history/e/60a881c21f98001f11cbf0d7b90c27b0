@@ -1,0 +1,36 @@
+package com.service;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.entity.Location;
+
+class LocationServiceTest {
+
+	
+	@Autowired
+	LocationService locationService;
+	
+	@Test
+	void testGetallLocation() {
+		List<Location> locationList = locationService.getallLocation();
+		assertNotNull(locationList);
+		assertEquals(4, locationList.size());
+		/*
+		 * Location loc = locationList.get(2); assertEquals("Panskura",
+		 * loc.getLoc_name());
+		 */
+	}
+
+	//@Test
+	void testAddLocation() {
+		fail("Not yet implemented");
+	}
+
+	
+
+}

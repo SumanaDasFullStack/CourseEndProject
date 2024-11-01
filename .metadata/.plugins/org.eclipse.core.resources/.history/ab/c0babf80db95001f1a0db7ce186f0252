@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<span style="color:red" th:text="${result}"></span>
+<h1>Total Fare</h1>
+<form th:action="@{farecalculation}" method="post" th:object="${fare}">
+<label>From Location</label><br/>
+<input type="text" th:field="*{source}"/><br/>
+<label>To Location</label><br/>
+<input type="text" th:field="*{destination}"/><br/>
+<label>Cab Type</label><br/>
+<input type="text" th:field="*{cabtype}" /><br/>
+<input type="submit" th:value="*{fareButton}" name="b2"/>
+</form>
+<a href="/">Back</a>
+</body>
+</html>

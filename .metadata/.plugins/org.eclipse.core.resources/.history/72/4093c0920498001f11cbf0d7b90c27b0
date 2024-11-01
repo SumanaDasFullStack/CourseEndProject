@@ -1,0 +1,31 @@
+package com.service;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.entity.BookCab;
+
+class BookCabServiceTest {
+
+	@Autowired
+	BookCabService bookcabService;
+	
+	@Test
+	void testFindAllBooking() {
+		List<BookCab> bookingList = bookcabService.findAllBooking();
+		assertNotNull(bookingList);
+		BookCab bookingDetails = bookingList.get(2);
+		assertEquals(1920, bookingDetails.getFare());
+		
+	}
+
+	//@Test
+	void testCreateBookings() {
+		fail("Not yet implemented");
+	}
+
+}

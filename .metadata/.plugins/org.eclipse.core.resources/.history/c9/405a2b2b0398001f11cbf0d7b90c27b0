@@ -1,0 +1,19 @@
+package com.service;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class BookCabServiceTest {
+
+	@Test
+	void testFindAllBooking() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testCreateBookings() {
+		fail("Not yet implemented");
+	}
+
+}

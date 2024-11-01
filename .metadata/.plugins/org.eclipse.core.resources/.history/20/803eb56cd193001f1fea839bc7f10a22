@@ -1,0 +1,25 @@
+package com.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.entity.Cab;
+import com.repository.CabRepository;
+
+@Service
+public class CabService {
+	@Autowired
+	CabRepository cabRepository;
+	
+	public List<Cab> getAllCab() {
+		return cabRepository.findAll();		
+	}
+	
+	public String addCab(Cab cab) {
+		cabRepository.save(cab);
+		return "Cab added successfully";
+	}
+
+}

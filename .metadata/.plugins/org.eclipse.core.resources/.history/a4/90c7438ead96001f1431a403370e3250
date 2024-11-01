@@ -1,0 +1,30 @@
+package com.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.entity.CabType;
+import com.entity.Location;
+import com.service.CabTypeService;
+import com.service.DistanceService;
+import com.service.LocationService;
+
+@RestController
+@RequestMapping("")
+public class FareController {
+	
+	@Autowired
+	CabTypeService cabtypeService;
+	@Autowired
+	LocationService locService;
+	@Autowired
+	DistanceService distanceService;
+	
+	 
+
+}

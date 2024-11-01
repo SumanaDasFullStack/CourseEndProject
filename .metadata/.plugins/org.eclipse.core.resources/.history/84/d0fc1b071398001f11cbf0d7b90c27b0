@@ -1,0 +1,30 @@
+package com.repository;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.entity.Cab;
+import com.entity.Distance;
+import com.entity.Location;
+
+@Repository
+public interface DistanceRepository extends JpaRepository<Distance, Integer>{
+
+	List<Distance> findByFromLocation(Location location);
+	/*
+	 * Distance findByFromLocationIdAndToLocationId(Long from_location_id, Long
+	 * to_location_id);
+	 * 
+	 * @Query("SELECT c FROM Cab c WHERE c.cab_id = :cab_id") Optional<Cab>
+	 * findById(@Param("cab_id") Long cab_id);
+	 */
+	
+	@Query("SELECT * FROM Distance d WHERE (d.from_location_id = :from_location_id AND d.to_location_id = :to_location_id) OR (d.from_location_id = :to_location_id AND d.to_location_id = :from_location_id)")
+	Distance findByFromLocationIdAndToLocationId(@Param("from_location_id") Long from_location_id, @Param("to_location_id") Long to_location_id);
+
+}

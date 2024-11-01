@@ -1,0 +1,17 @@
+package com.exception;
+
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(CabNotAvailableException.class)
+    public String handleCabNotAvailableException(CabNotAvailableException ex, Model model) {
+        model.addAttribute("errorMessage", ex.getMessage());
+        model.addAttribute("errorMessage", ex.getMessage());
+        model.addAttribute("errorMessage", ex.getMessage());
+        return "booking"; // Return to the booking page
+    }
+}

@@ -1,0 +1,16 @@
+package com.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.entity.CabType;
+
+@Repository
+public interface CabTypeRepository extends JpaRepository<CabType, Integer>{
+
+	Optional<CabType> findById(Long cabtype_id);
+	//boolean existsByName(String cabtype_name);
+
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<span style="color:red" th:text="${result}"></span>
+<h1>Book Cab</h1>
+<form th:action="@{booking}" method="post" th:object="${bookcab}">
+
+<label for="fromSelect">From Location  </label><br/>
+        <select id="fromSelect" name="source">
+            <option value="" th:unless="${categories}">No Location available</option>
+            <option th:each="location : ${categories}" 
+                    th:value="${location.name}" 
+                    th:text="${location.name}"></option>
+        </select>
+<!-- <input type="text" th:field="*{source}"/><br/> -->
+<br/><br/>
+<label for="toSelect">To Location  </label><br/>
+        <select id="toSelect" name="destination">
+            <option value="" th:unless="${categories}">No Location available</option>
+            <option th:each="location : ${categories}" 
+                    th:value="${location.name}" 
+                    th:text="${location.name}"></option>
+        </select>
+
+<br/><br/>
+<label for="cabtypeSelect">Cab Type  </label><br/>
+        <select id="cabtypeSelect" name="cabtype_name">
+            <option value="" th:unless="${cabtypes}">No Cab Types available</option>
+            <option th:each="cabtype : ${cabtypes}" 
+                    th:value="${cabtype.name}" 
+                    th:text="${cabtype.name}"></option>
+        </select>
+
+<br/><br/>
+<input type="submit" th:value="Submit" name="b1"/><br/>
+</form>
+<a href="/">Back</a>
+</body>
+</html>

@@ -1,0 +1,12 @@
+package com.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.entity.CabType;
+
+@Repository
+public interface CabTypeRepository extends JpaRepository<CabType, Integer>{
+	boolean existsByName(String cab_type);
+
+}

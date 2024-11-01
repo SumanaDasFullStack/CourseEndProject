@@ -1,0 +1,24 @@
+package com.service;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class LocationServiceTest {
+
+	@Test
+	void testGetallLocation() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testAddLocation() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testGetLocationById() {
+		fail("Not yet implemented");
+	}
+
+}

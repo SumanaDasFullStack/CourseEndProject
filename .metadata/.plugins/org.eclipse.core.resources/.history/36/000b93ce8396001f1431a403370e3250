@@ -1,0 +1,44 @@
+package com.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.entity.BookCab;
+import com.repository.BookCabRepository;
+
+@Service
+public class BookCabService {
+	
+	@Autowired
+	BookCabRepository bookcabRepository;
+	@Autowired
+	CabService cabService;
+	@Autowired
+	CabTypeService cabtypeService;
+	@Autowired
+	DistanceService distanceService;
+	@Autowired
+	LocationService locationService;
+	
+	public List<BookCab> findAllBooking() {
+		return bookcabRepository.findAll();
+		
+	}
+	
+	  public String createBooking(BookCab book) {
+		  bookcabRepository.save(book);
+		  return "booking done successfully"; 
+	  
+	  }
+	 
+	
+	public String createBookings(Long sourceId, Long destId, Long cabtypeId) {
+		
+		return "";
+	}
+	
+
+}

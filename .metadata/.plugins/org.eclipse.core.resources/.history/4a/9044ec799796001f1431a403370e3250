@@ -1,0 +1,84 @@
+package com.service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.entity.BookCab;
+import com.entity.Cab;
+import com.entity.CabType;
+import com.entity.Location;
+import com.repository.BookCabRepository;
+
+@Service
+public class BookCabService {
+	
+	@Autowired
+	BookCabRepository bookcabRepository;
+	@Autowired
+	CabService cabService;
+	@Autowired
+	CabTypeService cabtypeService;
+	@Autowired
+	DistanceService distanceService;
+	@Autowired
+	LocationService locationService;
+	private Cab Null;
+	
+	public List<BookCab> findAllBooking() {
+		return bookcabRepository.findAll();
+		
+	}
+	
+	  public String createBooking(BookCab book) {
+		  bookcabRepository.save(book);
+		  return "booking done successfully"; 
+	  
+	  }
+	 
+	
+	public BookCab createBookings(Long cabtypeId,Long sourceId, Long destId) {
+		// Fetch cab, source, and destination
+		CabType cabtype =cabtypeService.getCabTypeById(cabtypeId);
+       // Cab cab = cabService.getCabById(cabtype.getTypescabs());
+        
+        List<Cab> cabs = cabtype.getTypescabs();
+        Cab cab= Null;
+       if(!cabs.isEmpty()) {
+    	 
+    	  cab =cabs.get(0) ;
+    	  System.err.println("before"+cab.toString());
+       }
+       System.err.println(cab.toString());
+        Location source = locationService.getLocationById(sourceId);
+        Location destination = locationService.getLocationById(destId);
+        
+     // Calculate distance
+        Double distanceInKm = distanceService.getDistance(sourceId, destId);
+        System.err.println("distance error"+distanceInKm.toString());
+
+        // Calculate total fare (basefare+ distance * fare per km of the cab type)
+        Double basefare= cabtype.getBase_fare();
+        Double farePerKm = cabtype.getKmhr_fare();
+        Double totalFare = basefare+(farePerKm * distanceInKm) ;
+
+        // Create and save booking
+        BookCab booking = new BookCab();
+      
+        booking.setCab_id(cab.getCab_id());
+        booking.setSource(source.getLoc_name());
+        booking.setDestination(destination.getLoc_name());
+        booking.setFare(totalFare);
+        booking.setDistance(distanceInKm);
+        booking.setDate(new Date());
+        booking.setCabtype_id(cabtypeId);
+
+        return bookcabRepository.save(booking);
+    }
+		
+	
+
+}

@@ -1,0 +1,109 @@
+package com.controller;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestTemplate;
+
+import com.dto.BookingRequest;
+import com.entity.BookCab;
+import com.entity.Cab;
+import com.entity.CabType;
+import com.entity.Location;
+import com.service.BookCabService;
+import com.service.CabService;
+import com.service.CabTypeService;
+import com.service.DistanceService;
+import com.service.LocationService;
+
+@Controller
+public class CabBookController {
+
+	
+	@Autowired
+	BookCabService bookcabService;
+	@Autowired
+	LocationService locService;
+	@Autowired
+	CabService cabService;
+	@Autowired
+	CabTypeService cabtypeService;
+	
+	@Autowired
+	DistanceService distanceService;
+	
+	  @Autowired
+	    private RestTemplate restTemplate;
+	
+	  @RequestMapping(value = "",method=RequestMethod.GET) 
+	  public String openPage() { 
+		  return "index"; 
+		  }
+
+			
+			  @RequestMapping(value = "book",method=RequestMethod.GET) public String
+			  openBookCab(Model mm, BookCab book) { 
+				  List<BookCab> booklist=bookcabService.findAllBooking();
+				  
+			        List<Location> categories = locService.getallLocation();
+			        List<CabType> cabtypes = cabtypeService.getallcabType();
+			        mm.addAttribute("categories", categories);
+			        mm.addAttribute("cabtypes", cabtypes);
+			        mm.addAttribute("bookcab", book);
+			       // mm.addAttribute("bookinglist", booklist);
+				 
+				  return "book"; 
+				  }
+			 
+					
+					  @RequestMapping(value = "farecalculate",method=RequestMethod.GET) 
+					  public String openFareCalculation(Model mm) { 
+						  List<Location> categories = locService.getallLocation();
+					        List<CabType> cabtypes = cabtypeService.getallcabType();
+					        mm.addAttribute("categories", categories);
+					        mm.addAttribute("cabtypes", cabtypes);
+						  return "cabbook"; 
+						  }
+					 
+							
+							  @RequestMapping(value = "booking",method = RequestMethod.POST) 
+							  public String submitcabBooking(Model mm, BookCab book )
+							  { 
+								  List<Location> categories = locService.getallLocation();
+							        List<CabType> cabtypes = cabtypeService.getallcabType();
+							      						        
+							  
+							  BookCab result = bookcabService.createBookings(book.getCab_id(), Long.parseLong(book.getSource()),Long.parseLong(book.getDestination())); 
+							  
+							  mm.addAttribute("categories", categories);
+							  mm.addAttribute("cabtypes", cabtypes); mm.addAttribute("bookcab",book);
+							  mm.addAttribute("result", result);
+							  return "book";
+							  
+							  }
+							 
+
+					
+
+							/*
+							 * @GetMapping("/bookCab") public String showBookingForm(Model model,BookCab
+							 * book) { // Fetch available cabs and locations List<Cab> cabs =
+							 * restTemplate.getForObject("http://localhost:8080/api/cabs/allCabs",
+							 * List.class); List<Location> locations =
+							 * restTemplate.getForObject("http://localhost:8080/api/cabs/allLocations",
+							 * List.class); // BookCab booking
+							 * =restTemplate.getForObject("http://localhost:9191/booking/book", null); //
+							 * BookCab booking=bookcabService.createBookings(book.getCab_id(),
+							 * book.getSource()., null); model.addAttribute("cabtypes", cabs);
+							 * model.addAttribute("categories", locations);
+							 * model.addAttribute("bookcab",book); return "bookCabForm"; }
+							 */
+
+}

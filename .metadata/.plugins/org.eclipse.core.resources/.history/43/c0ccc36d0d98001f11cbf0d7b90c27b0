@@ -1,0 +1,17 @@
+package com.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.entity.Distance;
+import com.entity.Location;
+
+@Repository
+public interface DistanceRepository extends JpaRepository<Distance, Integer>{
+
+	List<Distance> findByFromLocation(Location location);
+	Distance findByFromLocationIdAndToLocationId(Long fromLocationId, Long toLocationId);
+
+}

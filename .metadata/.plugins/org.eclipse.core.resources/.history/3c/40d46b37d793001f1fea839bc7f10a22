@@ -1,0 +1,29 @@
+package com.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.entity.Location;
+import com.repository.LocationRepository;
+
+@Service
+public class LocationService {
+	@Autowired
+	LocationRepository locationRepository;
+	
+	public List<Location> getallLocation(){
+		return locationRepository.findAll();
+		}
+	
+	public String addLocation(Location location) {
+		if(locationRepository.findLocationByName(location.getName()))
+			return "Your Location is already added! Enter another location";
+		else {
+		locationRepository.save(location);
+		return "Location added Successfully";
+		
+	}
+
+}

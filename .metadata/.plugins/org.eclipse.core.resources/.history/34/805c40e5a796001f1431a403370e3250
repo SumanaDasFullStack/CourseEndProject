@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="/calculateFare/calculation" method="post">
+    <label for="source">Source:</label>
+    <select id="source" name="source">
+        <option th:each="location : ${categories}" th:value="${location.id}" th:text="${location.loc_name}"></option>
+    </select>
+
+    <label for="destination">Destination:</label>
+    <select id="destination" name="destination">
+        <option th:each="location : ${categories}" th:value="${location.id}" th:text="${location.loc_name}"></option>
+    </select>
+
+    <label for="cabType">Cab Type:</label>
+    <select id="cabType" name="cabtype_id.cab_id">
+        <option th:each="cab : ${cabtypes}" th:value="${cab.cabtype_id}" th:text="${cab.cabtype_name}"></option>
+    </select>
+
+    <button type="submit">Calculate Fare</button>
+</form>
+
+<div th:if="${fare != null}">
+    <h3>Total Fare: $<span th:text="${fare}"></span></h3>
+</div>
+</body>
+</html>
